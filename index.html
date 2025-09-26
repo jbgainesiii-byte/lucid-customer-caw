@@ -7,6 +7,7 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,22 +16,29 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: #1e40af;
+            color: #0f172a;
             overflow-x: hidden;
+            background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 25%, #10b981 50%, #f59e0b 75%, #f97316 100%);
+            background-size: 400% 400%;
+            animation: oceanWave 15s ease-in-out infinite;
         }
 
-        /* Clean Animations */
+        /* Modern Beach Animations */
+        @keyframes oceanWave {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
         @keyframes scroll-names {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
 
-        @keyframes number-change {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        @keyframes number-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
 
         @keyframes slide-down {
@@ -38,122 +46,185 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fade-in {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
         }
 
-        /* Utility Classes */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        @keyframes wave-pattern {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(5px) translateY(-2px); }
+            50% { transform: translateX(0) translateY(-4px); }
+            75% { transform: translateX(-5px) translateY(-2px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Modern Utility Classes */
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 0 2rem; 
+        }
         .text-center { text-align: center; }
+        .mb-12 { margin-bottom: 3rem; }
         .mb-8 { margin-bottom: 2rem; }
         .mb-6 { margin-bottom: 1.5rem; }
         .mb-4 { margin-bottom: 1rem; }
         .mb-2 { margin-bottom: 0.5rem; }
+        .mt-6 { margin-top: 1.5rem; }
         .mt-4 { margin-top: 1rem; }
+        .p-10 { padding: 2.5rem; }
         .p-8 { padding: 2rem; }
         .p-6 { padding: 1.5rem; }
         .p-4 { padding: 1rem; }
-        .rounded-xl { border-radius: 1rem; }
+        .rounded-3xl { border-radius: 1.5rem; }
+        .rounded-2xl { border-radius: 1rem; }
+        .rounded-xl { border-radius: 0.75rem; }
         .rounded-lg { border-radius: 0.5rem; }
-        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
         .grid { display: grid; }
         .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+        .gap-8 { gap: 2rem; }
         .gap-6 { gap: 1.5rem; }
         .gap-4 { gap: 1rem; }
         .flex { display: flex; }
         .items-center { align-items: center; }
         .justify-between { justify-content: space-between; }
         .justify-center { justify-content: center; }
+        .space-y-6 > * + * { margin-top: 1.5rem; }
         .space-y-4 > * + * { margin-top: 1rem; }
         .space-y-2 > * + * { margin-top: 0.5rem; }
         .cursor-pointer { cursor: pointer; }
-        .transition-all { transition: all 0.3s ease; }
+        .transition-all { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .transform { transform: translateZ(0); }
-        .hover\:scale-105:hover { transform: scale(1.05); }
         .relative { position: relative; }
         .absolute { position: absolute; }
         .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
         .overflow-hidden { overflow: hidden; }
+        .z-10 { z-index: 10; }
+        .z-20 { z-index: 20; }
 
-        /* Typography */
-        .text-6xl { font-size: 3.75rem; line-height: 1; }
-        .text-5xl { font-size: 3rem; line-height: 1; }
-        .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
-        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
-        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
-        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-        .text-base { font-size: 1rem; line-height: 1.5rem; }
+        /* Modern Typography */
+        .text-7xl { font-size: 4.5rem; line-height: 1; font-weight: 900; }
+        .text-6xl { font-size: 3.75rem; line-height: 1; font-weight: 800; }
+        .text-5xl { font-size: 3rem; line-height: 1; font-weight: 800; }
+        .text-4xl { font-size: 2.25rem; line-height: 2.5rem; font-weight: 700; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; font-weight: 700; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; font-weight: 600; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; font-weight: 500; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; font-weight: 500; }
+        .text-base { font-size: 1rem; line-height: 1.5rem; font-weight: 400; }
         .font-black { font-weight: 900; }
         .font-bold { font-weight: 700; }
         .font-semibold { font-weight: 600; }
         .font-medium { font-weight: 500; }
 
-        /* Colors */
+        /* Modern Beach Color Palette */
         .text-white { color: white; }
-        .text-blue-900 { color: #1e3a8a; }
-        .text-blue-800 { color: #1e40af; }
-        .text-blue-700 { color: #1d4ed8; }
-        .text-blue-600 { color: #2563eb; }
-        .text-coral-600 { color: #ff6b6b; }
-        .text-gray-700 { color: #374151; }
-        .text-gray-600 { color: #4b5563; }
-        .bg-white { background-color: white; }
-        .bg-blue-50 { background-color: #eff6ff; }
-        .bg-coral-500 { background-color: #ff6b6b; }
-        .bg-blue-600 { background-color: #2563eb; }
+        .text-slate-900 { color: #0f172a; }
+        .text-slate-800 { color: #1e293b; }
+        .text-slate-700 { color: #334155; }
+        .text-slate-600 { color: #475569; }
+        .text-ocean-900 { color: #0c4a6e; }
+        .text-ocean-800 { color: #075985; }
+        .text-ocean-700 { color: #0369a1; }
+        .text-coral-600 { color: #f97316; }
+        .text-coral-500 { color: #fb923c; }
+        .text-turquoise-600 { color: #0891b2; }
+        .text-turquoise-500 { color: #06b6d4; }
 
-        /* Background Gradients */
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        }
+
+        .glass-card-solid {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.1),
+                0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 35px 60px -12px rgba(0, 0, 0, 0.2),
+                0 15px 35px -5px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        /* Modern Gradients */
         .bg-ocean-gradient {
-            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
-            min-height: 100vh;
+            background: linear-gradient(135deg, 
+                #0ea5e9 0%, 
+                #06b6d4 25%, 
+                #10b981 50%, 
+                #f59e0b 75%, 
+                #f97316 100%);
+            background-size: 400% 400%;
+            animation: oceanWave 15s ease-in-out infinite;
         }
 
         .bg-countdown-gradient {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4, #0891b2);
+            background-size: 200% 200%;
+            animation: shimmer 3s ease-in-out infinite;
         }
 
         .bg-coral-gradient {
-            background: linear-gradient(135deg, #ff6b6b, #ff5252);
+            background: linear-gradient(135deg, #f97316, #fb923c, #fbbf24);
+            background-size: 200% 200%;
+            animation: shimmer 3s ease-in-out infinite;
         }
 
-        /* Card Styles */
-        .card {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(59, 130, 246, 0.1);
+        .bg-turquoise-gradient {
+            background: linear-gradient(135deg, #06b6d4, #0891b2, #0e7490);
         }
 
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        /* Countdown Timer */
+        /* Modern Countdown Timer */
         .countdown-number {
-            font-family: 'Courier New', monospace;
+            font-family: 'Inter', monospace;
             font-weight: 900;
-            animation: number-change 0.5s ease-in-out;
+            animation: number-pulse 0.6s ease-in-out;
+            background: linear-gradient(135deg, #ffffff, #f8fafc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Scrolling Banner */
+        /* Modern Scrolling Banner */
         .scroll-container {
-            background: linear-gradient(90deg, #2563eb, #1d4ed8, #2563eb);
-            padding: 1rem 0;
+            background: linear-gradient(90deg, 
+                rgba(14, 165, 233, 0.9), 
+                rgba(6, 182, 212, 0.9), 
+                rgba(8, 145, 178, 0.9));
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
             overflow: hidden;
             position: relative;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         .scroll-content {
             display: flex;
-            animation: scroll-names 30s linear infinite;
+            animation: scroll-names 35s linear infinite;
             white-space: nowrap;
         }
 
@@ -161,28 +232,31 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: white;
-            margin: 0 2rem;
+            margin: 0 2.5rem;
             display: inline-flex;
             align-items: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        /* First Banner */
+        /* Modern First Banner */
         .first-banner {
-            background: linear-gradient(135deg, #ff6b6b, #ff5252);
+            background: linear-gradient(135deg, #f97316, #fb923c);
             color: white;
-            padding: 1rem;
+            padding: 1.5rem 2rem;
             text-align: center;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 1.25rem;
-            margin-bottom: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
+            animation: float-gentle 4s ease-in-out infinite;
         }
 
-        /* Educational Dropdown */
+        /* Modern Educational Dropdown */
         .educational-card {
             cursor: pointer;
             position: relative;
+            overflow: visible;
         }
 
         .dropdown-content {
@@ -190,66 +264,139 @@
             top: 100%;
             left: 0;
             right: 0;
-            background: white;
-            border-radius: 0 0 1rem 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            z-index: 10;
-            animation: slide-down 0.3s ease-out;
-            border: 1px solid rgba(59, 130, 246, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 0 0 1.5rem 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            z-index: 20;
+            animation: slide-down 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-top: none;
         }
 
-        /* Button Styles */
-        .btn {
-            background: linear-gradient(135deg, #ff6b6b, #ff5252);
+        /* Modern Button Styles */
+        .btn-modern {
+            background: linear-gradient(135deg, #f97316, #fb923c);
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 2rem;
             border: none;
-            border-radius: 2rem;
+            border-radius: 3rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
             font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(255, 107, 107, 0.4);
+        .btn-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
         }
 
-        /* Badge Styles */
-        .badge {
+        .btn-modern:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 20px 40px -5px rgba(249, 115, 22, 0.4);
+        }
+
+        .btn-modern:hover::before {
+            left: 100%;
+        }
+
+        /* Modern Badge Styles */
+        .badge-modern {
             display: inline-flex;
             align-items: center;
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 3rem;
             font-size: 0.875rem;
             font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .badge-day {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
             color: white;
             font-size: 1rem;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 2rem;
+            box-shadow: 0 8px 20px -5px rgba(14, 165, 233, 0.3);
+        }
+
+        .badge-celebration {
+            background: linear-gradient(135deg, #f97316, #fb923c);
+            color: white;
+            font-size: 1.125rem;
+            padding: 1rem 2rem;
+            animation: float-gentle 3s ease-in-out infinite;
+            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Wave Pattern Background */
+        .wave-pattern {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E") repeat-x;
+            animation: wave-pattern 8s ease-in-out infinite;
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
+            .container { padding: 0 1.5rem; }
             .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+            .text-7xl { font-size: 3rem; }
             .text-6xl { font-size: 2.5rem; }
             .text-5xl { font-size: 2rem; }
-            .text-4xl { font-size: 1.75rem; }
-            .text-3xl { font-size: 1.5rem; }
-            .team-name { font-size: 1.25rem; margin: 0 1rem; }
-            .container { padding: 0 0.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 1rem; }
+            .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+            .text-7xl { font-size: 2.5rem; }
+            .text-6xl { font-size: 2rem; }
+            .text-5xl { font-size: 1.75rem; }
+            .text-4xl { font-size: 1.5rem; }
+            .team-name { font-size: 1.25rem; margin: 0 1.5rem; }
+            .p-10 { padding: 1.5rem; }
+            .p-8 { padding: 1.5rem; }
         }
 
         @media (max-width: 480px) {
             .grid-cols-4 { grid-template-columns: repeat(1, 1fr); }
-            .text-6xl { font-size: 2rem; }
-            .p-8 { padding: 1.5rem; }
+            .text-7xl { font-size: 2rem; }
+            .text-6xl { font-size: 1.75rem; }
+            .p-10 { padding: 1rem; }
+            .p-8 { padding: 1rem; }
             .p-6 { padding: 1rem; }
+        }
+
+        /* Modern Hover Effects */
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Shimmer Effect */
+        .shimmer {
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
         }
     </style>
 </head>
@@ -260,29 +407,29 @@
         const { useState, useEffect, useRef } = React;
         const { createRoot } = ReactDOM;
 
-        // UI Components
-        const Card = ({ children, className = "", onClick, hover = false }) => (
+        // Modern UI Components
+        const GlassCard = ({ children, className = "", onClick, hover = false, solid = false }) => (
             <div 
-                className={`card ${hover ? 'card-hover' : ''} ${className}`}
+                className={`${solid ? 'glass-card-solid' : 'glass-card'} ${hover ? 'glass-hover' : ''} rounded-3xl ${className}`}
                 onClick={onClick}
             >
                 {children}
             </div>
         );
 
-        const Badge = ({ children, className = "", day = false }) => (
-            <span className={`badge ${day ? 'badge-day' : ''} ${className}`}>
+        const ModernBadge = ({ children, className = "", day = false, celebration = false }) => (
+            <span className={`badge-modern ${day ? 'badge-day' : celebration ? 'badge-celebration' : ''} ${className}`}>
                 {children}
             </span>
         );
 
-        const Button = ({ children, onClick, className = "" }) => (
-            <button onClick={onClick} className={`btn ${className}`}>
+        const ModernButton = ({ children, onClick, className = "" }) => (
+            <button onClick={onClick} className={`btn-modern ${className}`}>
                 {children}
             </button>
         );
 
-        // Educational Dropdown Component
+        // Enhanced Educational Dropdown Component
         const EducationalCard = () => {
             const [isOpen, setIsOpen] = useState(false);
             const cardRef = useRef(null);
@@ -299,69 +446,70 @@
             }, []);
 
             return (
-                <div ref={cardRef} className="relative mb-8">
-                    <Card 
-                        className="educational-card cursor-pointer"
+                <div ref={cardRef} className="relative mb-12 z-10">
+                    <GlassCard 
+                        className="educational-card cursor-pointer hover-lift"
                         onClick={() => setIsOpen(!isOpen)}
                         hover={!isOpen}
+                        solid={true}
                     >
-                        <div className="p-6">
+                        <div className="p-8">
                             <div className="flex items-center justify-between">
-                                <h3 className="text-2xl font-bold text-blue-800">
+                                <h3 className="text-3xl font-bold text-ocean-800">
                                     📚 About Customer Service Week
                                 </h3>
-                                <span className="text-2xl text-blue-600">
+                                <span className="text-3xl text-turquoise-600 transition-all">
                                     {isOpen ? '▲' : '▼'}
                                 </span>
                             </div>
-                            <p className="text-gray-600 mt-2">
+                            <p className="text-slate-600 mt-2 text-lg">
                                 Click to learn more about this special celebration
                             </p>
                         </div>
                         
                         {isOpen && (
                             <div className="dropdown-content">
-                                <div className="p-6 space-y-4">
+                                <div className="p-8 space-y-6">
                                     <div>
-                                        <h4 className="text-lg font-semibold text-blue-800 mb-2">What is Customer Service Week?</h4>
-                                        <p className="text-gray-700">
+                                        <h4 className="text-xl font-semibold text-ocean-800 mb-3">What is Customer Service Week?</h4>
+                                        <p className="text-slate-700 text-lg leading-relaxed">
                                             Customer Service Week is an international celebration that honors the people who serve and support customers with the highest degree of care and professionalism. It's a time to recognize the important role customer service plays in successful business and to thank the professionals who serve customers daily.
                                         </p>
                                     </div>
                                     
                                     <div>
-                                        <h4 className="text-lg font-semibold text-blue-800 mb-2">A Brief History</h4>
-                                        <p className="text-gray-700">
+                                        <h4 className="text-xl font-semibold text-ocean-800 mb-3">A Brief History</h4>
+                                        <p className="text-slate-700 text-lg leading-relaxed">
                                             Customer Service Week was proclaimed by the U.S. Congress in 1992 and is celebrated annually during the first full week in October. It has since grown into an international event celebrated by organizations worldwide.
                                         </p>
                                     </div>
                                     
                                     <div>
-                                        <h4 className="text-lg font-semibold text-blue-800 mb-2">How Lucid Will Celebrate</h4>
-                                        <p className="text-gray-700">
+                                        <h4 className="text-xl font-semibold text-ocean-800 mb-3">How Lucid Will Celebrate</h4>
+                                        <p className="text-slate-700 text-lg leading-relaxed">
                                             This year, we're celebrating with themed dress-up days, team-building activities, fun challenges, and special meals throughout the week. Each day brings new opportunities to connect, have fun, and celebrate our amazing team spirit.
                                         </p>
                                     </div>
                                     
-                                    <div className="bg-blue-50 p-4 rounded-lg">
-                                        <h4 className="text-lg font-semibold text-blue-800 mb-2">A Message from Leadership</h4>
-                                        <p className="text-gray-700 italic">
+                                    <GlassCard className="p-6" solid={true}>
+                                        <h4 className="text-xl font-semibold text-ocean-800 mb-3">A Message from Leadership</h4>
+                                        <p className="text-slate-700 text-lg leading-relaxed italic">
                                             "To our incredible Customer Care team - thank you for your dedication, professionalism, and the exceptional service you provide every day. Your hard work and commitment to our customers make all the difference. As we celebrate our first Customer Service Week together, we want you to know that the best is yet to come!"
                                         </p>
-                                        <p className="text-sm text-gray-600 mt-2 font-medium">
+                                        <p className="text-base text-slate-600 mt-4 font-medium">
                                             - William, Ben, Hein, Anthony C., Angus, Johnny<br/>
-                                            <span className="text-blue-600">Leadership Team</span>
+                                            <span className="text-turquoise-600 font-semibold">Leadership Team</span>
                                         </p>
-                                    </div>
+                                    </GlassCard>
                                 </div>
                             </div>
                         )}
-                    </Card>
+                    </GlassCard>
                 </div>
             );
         };
 
-        // Scrolling Banner Component
+        // Modern Scrolling Banner Component
         const ScrollingBanner = ({ teamNames }) => {
             const beachEmojis = ['🏖️', '🌊', '🐚', '🌴', '☀️', '🏝️', '⭐', '🌺'];
             
@@ -375,7 +523,7 @@
             ]);
 
             return (
-                <div className="scroll-container mb-8">
+                <div className="scroll-container mb-12">
                     <div className="scroll-content">
                         {nameElements}
                         {nameElements} {/* Duplicate for seamless loop */}
@@ -495,24 +643,26 @@
             };
 
             return (
-                <div className="bg-ocean-gradient">
-                    <div className="container py-8">
+                <div className="bg-ocean-gradient min-h-screen relative">
+                    <div className="wave-pattern"></div>
+                    
+                    <div className="container py-12 relative z-10">
                         {/* Header */}
-                        <div className="text-center mb-8">
+                        <div className="text-center mb-12">
                             <div className="first-banner">
                                 🎉 LUCID MOTORS CUSTOMER CARE TEAM'S FIRST CUSTOMER SERVICE WEEK! 🎉
                             </div>
                             
-                            <h1 className="text-6xl font-black text-blue-900 mb-4">
+                            <h1 className="text-7xl font-black text-white mb-6 drop-shadow-lg">
                                 🏖️ Customer Service Week 2025 🏖️
                             </h1>
-                            <p className="text-2xl text-blue-700 mb-2 font-semibold">Lucid Motors Customer Care Team</p>
-                            <p className="text-xl text-blue-600">October 6-10, 2025 • Beach Paradise Theme</p>
+                            <p className="text-3xl text-white mb-4 font-semibold drop-shadow-md">Lucid Motors Customer Care Team</p>
+                            <p className="text-2xl text-white opacity-90 drop-shadow-md">October 6-10, 2025 • Beach Paradise Theme</p>
                             {isEventWeek && (
-                                <div className="mt-4">
-                                    <Badge className="bg-coral-gradient text-white text-lg px-6 py-3">
+                                <div className="mt-6">
+                                    <ModernBadge celebration>
                                         🎊 IT'S CUSTOMER SERVICE WEEK! 🎊
-                                    </Badge>
+                                    </ModernBadge>
                                 </div>
                             )}
                         </div>
@@ -521,115 +671,115 @@
                         <EducationalCard />
 
                         {/* Countdown Timer */}
-                        <Card className="mb-8">
-                            <div className="p-8 text-center">
-                                <h2 className="text-4xl font-bold text-blue-800 mb-6">
+                        <GlassCard className="mb-12" solid={true}>
+                            <div className="p-10 text-center">
+                                <h2 className="text-5xl font-bold text-ocean-800 mb-8">
                                     {isEventWeek ? "🎊 CELEBRATING NOW! 🎊" : "⏰ Countdown to Paradise ⏰"}
                                 </h2>
                                 
                                 {!isEventWeek ? (
-                                    <div className="grid grid-cols-4 gap-6">
-                                        <div className="bg-countdown-gradient rounded-xl p-6 text-white">
-                                            <div className="text-5xl font-black countdown-number mb-2">{timeLeft.days}</div>
-                                            <div className="text-lg font-semibold">DAYS</div>
+                                    <div className="grid grid-cols-4 gap-8">
+                                        <div className="bg-countdown-gradient rounded-2xl p-8 text-white hover-lift">
+                                            <div className="text-6xl font-black countdown-number mb-3">{timeLeft.days}</div>
+                                            <div className="text-xl font-semibold opacity-90">DAYS</div>
                                         </div>
-                                        <div className="bg-countdown-gradient rounded-xl p-6 text-white">
-                                            <div className="text-5xl font-black countdown-number mb-2">{timeLeft.hours}</div>
-                                            <div className="text-lg font-semibold">HOURS</div>
+                                        <div className="bg-countdown-gradient rounded-2xl p-8 text-white hover-lift">
+                                            <div className="text-6xl font-black countdown-number mb-3">{timeLeft.hours}</div>
+                                            <div className="text-xl font-semibold opacity-90">HOURS</div>
                                         </div>
-                                        <div className="bg-countdown-gradient rounded-xl p-6 text-white">
-                                            <div className="text-5xl font-black countdown-number mb-2">{timeLeft.minutes}</div>
-                                            <div className="text-lg font-semibold">MINUTES</div>
+                                        <div className="bg-countdown-gradient rounded-2xl p-8 text-white hover-lift">
+                                            <div className="text-6xl font-black countdown-number mb-3">{timeLeft.minutes}</div>
+                                            <div className="text-xl font-semibold opacity-90">MINUTES</div>
                                         </div>
-                                        <div className="bg-countdown-gradient rounded-xl p-6 text-white">
-                                            <div className="text-5xl font-black countdown-number mb-2">{timeLeft.seconds}</div>
-                                            <div className="text-lg font-semibold">SECONDS</div>
+                                        <div className="bg-countdown-gradient rounded-2xl p-8 text-white hover-lift">
+                                            <div className="text-6xl font-black countdown-number mb-3">{timeLeft.seconds}</div>
+                                            <div className="text-xl font-semibold opacity-90">SECONDS</div>
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="py-8">
-                                        <div className="text-6xl mb-4">🎉🎊🎈</div>
-                                        <h3 className="text-4xl font-bold text-blue-800 mb-4">Customer Service Week is Here!</h3>
-                                        <p className="text-xl text-blue-600">Let's celebrate our amazing team and dedication to excellence!</p>
+                                    <div className="py-12">
+                                        <div className="text-7xl mb-6">🎉🎊🎈</div>
+                                        <h3 className="text-5xl font-bold text-ocean-800 mb-6">Customer Service Week is Here!</h3>
+                                        <p className="text-2xl text-slate-700">Let's celebrate our amazing team and dedication to excellence!</p>
                                     </div>
                                 )}
                             </div>
-                        </Card>
+                        </GlassCard>
 
                         {/* Scrolling Team Names Banner */}
                         <ScrollingBanner teamNames={teamMembers} />
 
                         {/* Weekly Events */}
-                        <Card className="mb-8">
-                            <div className="p-8">
-                                <h2 className="text-4xl font-bold text-blue-800 mb-6 text-center">
+                        <GlassCard className="mb-12" solid={true}>
+                            <div className="p-10">
+                                <h2 className="text-5xl font-bold text-ocean-800 mb-8 text-center">
                                     🗓️ Week of Beach Adventures 🗓️
                                 </h2>
                                 
-                                <div className="space-y-4">
+                                <div className="space-y-6">
                                     {weekEvents.map((event, index) => (
-                                        <Card
+                                        <GlassCard
                                             key={index}
                                             className="cursor-pointer"
                                             onClick={() => handleEventClick(index)}
                                             hover={true}
                                         >
-                                            <div className="p-6">
-                                                <div className="flex items-center justify-between mb-4">
-                                                    <div className="flex items-center space-x-4">
-                                                        <Badge day>
+                                            <div className="p-8">
+                                                <div className="flex items-center justify-between mb-6">
+                                                    <div className="flex items-center gap-6">
+                                                        <ModernBadge day>
                                                             {event.day}
-                                                        </Badge>
-                                                        <span className="text-xl font-bold text-blue-800">{event.date}</span>
+                                                        </ModernBadge>
+                                                        <span className="text-2xl font-bold text-ocean-800">{event.date}</span>
                                                     </div>
-                                                    <div className="flex items-center space-x-2">
-                                                        <span className="text-2xl">❤️</span>
-                                                        <span className="text-2xl">⭐</span>
+                                                    <div className="flex items-center gap-3">
+                                                        <span className="text-3xl">❤️</span>
+                                                        <span className="text-3xl">⭐</span>
                                                     </div>
                                                 </div>
                                                 
-                                                <h3 className="text-2xl font-bold text-blue-800 mb-2">{event.event}</h3>
-                                                <p className="text-lg font-semibold text-coral-600 mb-2">Theme: {event.theme}</p>
-                                                <p className="text-gray-700 mb-2">{event.description}</p>
+                                                <h3 className="text-3xl font-bold text-ocean-800 mb-3">{event.event}</h3>
+                                                <p className="text-xl font-semibold text-coral-600 mb-3">Theme: {event.theme}</p>
+                                                <p className="text-lg text-slate-700 mb-3 leading-relaxed">{event.description}</p>
                                                 
                                                 {expandedEvent === index && (
-                                                    <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-                                                        <h4 className="text-lg font-semibold text-blue-800 mb-2">🎯 Activities:</h4>
-                                                        <ul className="space-y-1 mb-4">
+                                                    <div className="mt-6 p-6 glass-card rounded-2xl">
+                                                        <h4 className="text-xl font-semibold text-ocean-800 mb-4">🎯 Activities:</h4>
+                                                        <ul className="space-y-2 mb-6">
                                                             {event.activities.map((activity, i) => (
-                                                                <li key={i} className="flex items-start text-gray-700">
-                                                                    <span className="text-coral-600 mr-2">•</span>
+                                                                <li key={i} className="flex items-start text-lg text-slate-700">
+                                                                    <span className="text-coral-600 mr-3 text-xl">•</span>
                                                                     {activity}
                                                                 </li>
                                                             ))}
                                                         </ul>
-                                                        <div className="bg-coral-gradient p-3 rounded-lg">
-                                                            <h4 className="text-lg font-semibold text-white mb-1">🍽️ Potluck:</h4>
-                                                            <p className="text-white">{event.potluck}</p>
+                                                        <div className="bg-coral-gradient p-4 rounded-xl">
+                                                            <h4 className="text-xl font-semibold text-white mb-2">🍽️ Potluck:</h4>
+                                                            <p className="text-white text-lg">{event.potluck}</p>
                                                         </div>
                                                     </div>
                                                 )}
                                             </div>
-                                        </Card>
+                                        </GlassCard>
                                     ))}
                                 </div>
                             </div>
-                        </Card>
+                        </GlassCard>
 
                         {/* Powerful Quote */}
-                        <Card className="bg-coral-gradient text-white">
-                            <div className="p-8 text-center">
-                                <h2 className="text-4xl font-bold mb-6">
+                        <GlassCard className="bg-coral-gradient text-white">
+                            <div className="p-10 text-center">
+                                <h2 className="text-5xl font-bold mb-8 drop-shadow-lg">
                                     "Customer service is not a department, it's an attitude."
                                 </h2>
-                                <p className="text-xl mb-6 opacity-90">
+                                <p className="text-2xl mb-8 opacity-90 drop-shadow-md leading-relaxed">
                                     Let's make this Customer Service Week a celebration of excellence, teamwork, and the incredible impact we make every day! 🌊✨
                                 </p>
-                                <Button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                                <ModernButton onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                                     🏄‍♀️ Back to Top 🏄‍♂️
-                                </Button>
+                                </ModernButton>
                             </div>
-                        </Card>
+                        </GlassCard>
                     </div>
                 </div>
             );
