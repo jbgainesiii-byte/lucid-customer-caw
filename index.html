@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏖️ Customer Service Week 2025 - Lucid Motors</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #1e40af;
+            overflow-x: hidden;
+        }
+
+        /* Clean Animations */
+        @keyframes scroll-names {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        @keyframes number-change {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slide-down {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Utility Classes */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .text-center { text-align: center; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .p-8 { padding: 2rem; }
+        .p-6 { padding: 1.5rem; }
+        .p-4 { padding: 1rem; }
+        .rounded-xl { border-radius: 1rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .grid { display: grid; }
+        .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+        .gap-6 { gap: 1.5rem; }
+        .gap-4 { gap: 1rem; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-y-2 > * + * { margin-top: 0.5rem; }
+        .cursor-pointer { cursor: pointer; }
+        .transition-all { transition: all 0.3s ease; }
+        .transform { transform: translateZ(0); }
+        .hover\:scale-105:hover { transform: scale(1.05); }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .overflow-hidden { overflow: hidden; }
+
+        /* Typography */
+        .text-6xl { font-size: 3.75rem; line-height: 1; }
+        .text-5xl { font-size: 3rem; line-height: 1; }
+        .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-base { font-size: 1rem; line-height: 1.5rem; }
+        .font-black { font-weight: 900; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-medium { font-weight: 500; }
+
+        /* Colors */
+        .text-white { color: white; }
+        .text-blue-900 { color: #1e3a8a; }
+        .text-blue-800 { color: #1e40af; }
+        .text-blue-700 { color: #1d4ed8; }
+        .text-blue-600 { color: #2563eb; }
+        .text-coral-600 { color: #ff6b6b; }
+        .text-gray-700 { color: #374151; }
+        .text-gray-600 { color: #4b5563; }
+        .bg-white { background-color: white; }
+        .bg-blue-50 { background-color: #eff6ff; }
+        .bg-coral-500 { background-color: #ff6b6b; }
+        .bg-blue-600 { background-color: #2563eb; }
+
+        /* Background Gradients */
+        .bg-ocean-gradient {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+            min-height: 100vh;
+        }
+
+        .bg-countdown-gradient {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        }
+
+        .bg-coral-gradient {
+            background: linear-gradient(135deg, #ff6b6b, #ff5252);
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Countdown Timer */
+        .countdown-number {
+            font-family: 'Courier New', monospace;
+            font-weight: 900;
+            animation: number-change 0.5s ease-in-out;
+        }
+
+        /* Scrolling Banner */
+        .scroll-container {
+            background: linear-gradient(90deg, #2563eb, #1d4ed8, #2563eb);
+            padding: 1rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .scroll-content {
+            display: flex;
+            animation: scroll-names 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0 2rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* First Banner */
+        .first-banner {
+            background: linear-gradient(135deg, #ff6b6b, #ff5252);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Educational Dropdown */
+        .educational-card {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 0 0 1rem 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            animation: slide-down 0.3s ease-out;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-top: none;
+        }
+
+        /* Button Styles */
+        .btn {
+            background: linear-gradient(135deg, #ff6b6b, #ff5252);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Badge Styles */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .badge-day {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+            .text-6xl { font-size: 2.5rem; }
+            .text-5xl { font-size: 2rem; }
+            .text-4xl { font-size: 1.75rem; }
+            .text-3xl { font-size: 1.5rem; }
+            .team-name { font-size: 1.25rem; margin: 0 1rem; }
+            .container { padding: 0 0.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .grid-cols-4 { grid-template-columns: repeat(1, 1fr); }
+            .text-6xl { font-size: 2rem; }
+            .p-8 { padding: 1.5rem; }
+            .p-6 { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { createRoot } = ReactDOM;
+
+        // UI Components
+        const Card = ({ children, className = "", onClick, hover = false }) => (
+            <div 
+                className={`card ${hover ? 'card-hover' : ''} ${className}`}
+                onClick={onClick}
+            >
+                {children}
+            </div>
+        );
+
+        const Badge = ({ children, className = "", day = false }) => (
+            <span className={`badge ${day ? 'badge-day' : ''} ${className}`}>
+                {children}
+            </span>
+        );
+
+        const Button = ({ children, onClick, className = "" }) => (
+            <button onClick={onClick} className={`btn ${className}`}>
+                {children}
+            </button>
+        );
+
+        // Educational Dropdown Component
+        const EducationalCard = () => {
+            const [isOpen, setIsOpen] = useState(false);
+            const cardRef = useRef(null);
+
+            useEffect(() => {
+                const handleClickOutside = (event) => {
+                    if (cardRef.current && !cardRef.current.contains(event.target)) {
+                        setIsOpen(false);
+                    }
+                };
+
+                document.addEventListener('mousedown', handleClickOutside);
+                return () => document.removeEventListener('mousedown', handleClickOutside);
+            }, []);
+
+            return (
+                <div ref={cardRef} className="relative mb-8">
+                    <Card 
+                        className="educational-card cursor-pointer"
+                        onClick={() => setIsOpen(!isOpen)}
+                        hover={!isOpen}
+                    >
+                        <div className="p-6">
+                            <div className="flex items-center justify-between">
+                                <h3 className="text-2xl font-bold text-blue-800">
+                                    📚 About Customer Service Week
+                                </h3>
+                                <span className="text-2xl text-blue-600">
+                                    {isOpen ? '▲' : '▼'}
+                                </span>
+                            </div>
+                            <p className="text-gray-600 mt-2">
+                                Click to learn more about this special celebration
+                            </p>
+                        </div>
+                        
+                        {isOpen && (
+                            <div className="dropdown-content">
+                                <div className="p-6 space-y-4">
+                                    <div>
+                                        <h4 className="text-lg font-semibold text-blue-800 mb-2">What is Customer Service Week?</h4>
+                                        <p className="text-gray-700">
+                                            Customer Service Week is an international celebration that honors the people who serve and support customers with the highest degree of care and professionalism. It's a time to recognize the important role customer service plays in successful business and to thank the professionals who serve customers daily.
+                                        </p>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 className="text-lg font-semibold text-blue-800 mb-2">A Brief History</h4>
+                                        <p className="text-gray-700">
+                                            Customer Service Week was proclaimed by the U.S. Congress in 1992 and is celebrated annually during the first full week in October. It has since grown into an international event celebrated by organizations worldwide.
+                                        </p>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 className="text-lg font-semibold text-blue-800 mb-2">How Lucid Will Celebrate</h4>
+                                        <p className="text-gray-700">
+                                            This year, we're celebrating with themed dress-up days, team-building activities, fun challenges, and special meals throughout the week. Each day brings new opportunities to connect, have fun, and celebrate our amazing team spirit.
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="bg-blue-50 p-4 rounded-lg">
+                                        <h4 className="text-lg font-semibold text-blue-800 mb-2">A Message from Leadership</h4>
+                                        <p className="text-gray-700 italic">
+                                            "To our incredible Customer Care team - thank you for your dedication, professionalism, and the exceptional service you provide every day. Your hard work and commitment to our customers make all the difference. As we celebrate our first Customer Service Week together, we want you to know that the best is yet to come!"
+                                        </p>
+                                        <p className="text-sm text-gray-600 mt-2 font-medium">
+                                            - William, Ben, Hein, Anthony C., Angus, Johnny<br/>
+                                            <span className="text-blue-600">Leadership Team</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </Card>
+                </div>
+            );
+        };
+
+        // Scrolling Banner Component
+        const ScrollingBanner = ({ teamNames }) => {
+            const beachEmojis = ['🏖️', '🌊', '🐚', '🌴', '☀️', '🏝️', '⭐', '🌺'];
+            
+            const nameElements = teamNames.flatMap((name, index) => [
+                <span key={`name-${index}`} className="team-name">
+                    {name}
+                </span>,
+                <span key={`emoji-${index}`} className="team-name">
+                    {beachEmojis[index % beachEmojis.length]}
+                </span>
+            ]);
+
+            return (
+                <div className="scroll-container mb-8">
+                    <div className="scroll-content">
+                        {nameElements}
+                        {nameElements} {/* Duplicate for seamless loop */}
+                    </div>
+                </div>
+            );
+        };
+
+        function App() {
+            const [timeLeft, setTimeLeft] = useState({
+                days: 0,
+                hours: 0,
+                minutes: 0,
+                seconds: 0
+            });
+            const [isEventWeek, setIsEventWeek] = useState(false);
+            const [expandedEvent, setExpandedEvent] = useState(null);
+
+            // Customer Service Week starts October 6, 2025
+            const targetDate = new Date('2025-10-06T00:00:00');
+            const endDate = new Date('2025-10-10T23:59:59');
+
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    const now = new Date().getTime();
+                    const distance = targetDate.getTime() - now;
+                    const currentTime = new Date();
+
+                    setIsEventWeek(currentTime >= targetDate && currentTime <= endDate);
+
+                    if (distance > 0) {
+                        setTimeLeft({
+                            days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+                            hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                            minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+                            seconds: Math.floor((distance % (1000 * 60)) / 1000)
+                        });
+                    } else {
+                        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+                    }
+                }, 1000);
+
+                return () => clearInterval(timer);
+            }, []);
+
+            // Team Members
+            const teamMembers = [
+                "Aaron", "Aline", "Daniel K.", "Phil", "Mya", "Omari", "Jasmine", "Jaylen",
+                "Anthony", "Marquise", "Shakera", "Ashli", "Justin", "Lynn", "James", "Daniel Y.",
+                "JaVonte", "Derrick", "Nik", "Jeromy", "JBG3", "Angus", "Hein", "Anthony C.",
+                "Joeyl", "Ben", "William", "Jay", "Nader"
+            ];
+
+            // Events
+            const weekEvents = [
+                { 
+                    day: "Day 1", 
+                    date: "Monday", 
+                    event: "Fun & Games - Comfy & Casual 🛋️", 
+                    theme: "Pajamas & Chill",
+                    description: "Come to work in cozy attire—pajamas, joggers, fuzzy socks, or your favorite hoodie. Bring a mug for coffee, tea, or hot cocoa.",
+                    activities: [
+                        "⏱️ 'Minute to Win It' Game Challenge (groups of 3)",
+                        "🍪 Cookie Face: Move a cookie from forehead to mouth without using hands",
+                        "📚 Stack Attack: Stack 36 cups into a pyramid and back down",
+                        "🏆 Prizes for top scorers or best team spirit!",
+                        "🧠 Mini Puzzle Challenge: Word searches, riddles, logic games at desks"
+                    ],
+                    potluck: "🍳 Comfort Food Brunch – waffles, breakfast burritos, muffins, fruit, etc."
+                },
+                { 
+                    day: "Day 2", 
+                    date: "Tuesday", 
+                    event: "Team Tuesday - Team Spirit 🏈", 
+                    theme: "Rep your favorite team (Football, baseball, basketball, or whatever)",
+                    description: "Show your team pride! Wear jerseys, team colors, or any sports gear.",
+                    activities: [
+                        "🎯 Team Bingo Challenge",
+                        "🏆 Best Team Spirit Award",
+                        "📸 Team Photo Contest",
+                        "🎮 Sports Trivia Games"
+                    ],
+                    potluck: "🌮 Taco Bar Extravaganza"
+                },
+                { 
+                    day: "Day 3", 
+                    date: "Wednesday", 
+                    event: "Wacky Wednesday - Anything But Normal 🤪", 
+                    theme: "Wacky hats, silly socks, mix-match clothes – the weirder the better!",
+                    description: "Let your creativity shine! The more outrageous, the better.",
+                    activities: [
+                        "🔍 Office Scavenger Hunt with fun clues",
+                        "🎭 Wackiest Outfit Contest",
+                        "📱 Photo Booth with silly props",
+                        "🎪 Crazy Hat Parade"
+                    ],
+                    potluck: "🍿 Snack Exchange: Everyone brings a favorite snack + 🍕 Lucid Lunch Pizza"
+                },
+                { 
+                    day: "Day 4", 
+                    date: "Thursday", 
+                    event: "Throwback Thursday - Decades Day 📻", 
+                    theme: "Pick a decade (70s, 80s, 90s, 2000s) and dress accordingly",
+                    description: "Travel back in time! Choose your favorite decade and dress the part.",
+                    activities: [
+                        "🎵 Office Playlist: Staff submits songs from their decade",
+                        "🎯 Guess That Year Game: Match pop culture or events to the right decade",
+                        "💃 Decade Dance-Off",
+                        "📺 Nostalgic Trivia Challenge"
+                    ],
+                    potluck: "🍩 Sweet Treats Exchange – Everyone brings a favorite dessert + 🥪 Lunch provided Subs"
+                }
+            ];
+
+            const handleEventClick = (index) => {
+                setExpandedEvent(expandedEvent === index ? null : index);
+            };
+
+            return (
+                <div className="bg-ocean-gradient">
+                    <div className="container py-8">
+                        {/* Header */}
+                        <div className="text-center mb-8">
+                            <div className="first-banner">
+                                🎉 LUCID MOTORS CUSTOMER CARE TEAM'S FIRST CUSTOMER SERVICE WEEK! 🎉
+                            </div>
+                            
+                            <h1 className="text-6xl font-black text-blue-900 mb-4">
+                                🏖️ Customer Service Week 2025 🏖️
+                            </h1>
+                            <p className="text-2xl text-blue-700 mb-2 font-semibold">Lucid Motors Customer Care Team</p>
+                            <p className="text-xl text-blue-600">October 6-10, 2025 • Beach Paradise Theme</p>
+                            {isEventWeek && (
+                                <div className="mt-4">
+                                    <Badge className="bg-coral-gradient text-white text-lg px-6 py-3">
+                                        🎊 IT'S CUSTOMER SERVICE WEEK! 🎊
+                                    </Badge>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Educational Dropdown */}
+                        <EducationalCard />
+
+                        {/* Countdown Timer */}
+                        <Card className="mb-8">
+                            <div className="p-8 text-center">
+                                <h2 className="text-4xl font-bold text-blue-800 mb-6">
+                                    {isEventWeek ? "🎊 CELEBRATING NOW! 🎊" : "⏰ Countdown to Paradise ⏰"}
+                                </h2>
+                                
+                                {!isEventWeek ? (
+                                    <div className="grid grid-cols-4 gap-6">
+                                        <div className="bg-countdown-gradient rounded-xl p-6 text-white">
+                                            <div className="text-5xl font-black countdown-number mb-2">{timeLeft.days}</div>
+                                            <div className="text-lg font-semibold">DAYS</div>
+                                        </div>
+                                        <div className="bg-countdown-gradient rounded-xl p-6 text-white">
+                                            <div className="text-5xl font-black countdown-number mb-2">{timeLeft.hours}</div>
+                                            <div className="text-lg font-semibold">HOURS</div>
+                                        </div>
+                                        <div className="bg-countdown-gradient rounded-xl p-6 text-white">
+                                            <div className="text-5xl font-black countdown-number mb-2">{timeLeft.minutes}</div>
+                                            <div className="text-lg font-semibold">MINUTES</div>
+                                        </div>
+                                        <div className="bg-countdown-gradient rounded-xl p-6 text-white">
+                                            <div className="text-5xl font-black countdown-number mb-2">{timeLeft.seconds}</div>
+                                            <div className="text-lg font-semibold">SECONDS</div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="py-8">
+                                        <div className="text-6xl mb-4">🎉🎊🎈</div>
+                                        <h3 className="text-4xl font-bold text-blue-800 mb-4">Customer Service Week is Here!</h3>
+                                        <p className="text-xl text-blue-600">Let's celebrate our amazing team and dedication to excellence!</p>
+                                    </div>
+                                )}
+                            </div>
+                        </Card>
+
+                        {/* Scrolling Team Names Banner */}
+                        <ScrollingBanner teamNames={teamMembers} />
+
+                        {/* Weekly Events */}
+                        <Card className="mb-8">
+                            <div className="p-8">
+                                <h2 className="text-4xl font-bold text-blue-800 mb-6 text-center">
+                                    🗓️ Week of Beach Adventures 🗓️
+                                </h2>
+                                
+                                <div className="space-y-4">
+                                    {weekEvents.map((event, index) => (
+                                        <Card
+                                            key={index}
+                                            className="cursor-pointer"
+                                            onClick={() => handleEventClick(index)}
+                                            hover={true}
+                                        >
+                                            <div className="p-6">
+                                                <div className="flex items-center justify-between mb-4">
+                                                    <div className="flex items-center space-x-4">
+                                                        <Badge day>
+                                                            {event.day}
+                                                        </Badge>
+                                                        <span className="text-xl font-bold text-blue-800">{event.date}</span>
+                                                    </div>
+                                                    <div className="flex items-center space-x-2">
+                                                        <span className="text-2xl">❤️</span>
+                                                        <span className="text-2xl">⭐</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <h3 className="text-2xl font-bold text-blue-800 mb-2">{event.event}</h3>
+                                                <p className="text-lg font-semibold text-coral-600 mb-2">Theme: {event.theme}</p>
+                                                <p className="text-gray-700 mb-2">{event.description}</p>
+                                                
+                                                {expandedEvent === index && (
+                                                    <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+                                                        <h4 className="text-lg font-semibold text-blue-800 mb-2">🎯 Activities:</h4>
+                                                        <ul className="space-y-1 mb-4">
+                                                            {event.activities.map((activity, i) => (
+                                                                <li key={i} className="flex items-start text-gray-700">
+                                                                    <span className="text-coral-600 mr-2">•</span>
+                                                                    {activity}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                        <div className="bg-coral-gradient p-3 rounded-lg">
+                                                            <h4 className="text-lg font-semibold text-white mb-1">🍽️ Potluck:</h4>
+                                                            <p className="text-white">{event.potluck}</p>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </Card>
+                                    ))}
+                                </div>
+                            </div>
+                        </Card>
+
+                        {/* Powerful Quote */}
+                        <Card className="bg-coral-gradient text-white">
+                            <div className="p-8 text-center">
+                                <h2 className="text-4xl font-bold mb-6">
+                                    "Customer service is not a department, it's an attitude."
+                                </h2>
+                                <p className="text-xl mb-6 opacity-90">
+                                    Let's make this Customer Service Week a celebration of excellence, teamwork, and the incredible impact we make every day! 🌊✨
+                                </p>
+                                <Button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                                    🏄‍♀️ Back to Top 🏄‍♂️
+                                </Button>
+                            </div>
+                        </Card>
+                    </div>
+                </div>
+            );
+        }
+
+        // Render the app
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
